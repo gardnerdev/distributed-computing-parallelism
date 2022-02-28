@@ -25,3 +25,24 @@ Taking a cue from Queue, Shared Memory stores the shared data among the processe
 
 ## Value
 The number 4 is passed as an argument to the function cube(). value attribute fetches the actual value of the Value, num. The modified number is later sent to the cube() function. The final double-cubed number is then reflected in the print statement.
+
+## Array
+A list of values can be shared amongst multiple processes. 
+Array() initializes an empty array possessing int data type having a length 3. 
+The array has been looped over by adding 1 to every element in it.
+
+You can use arr in a different process, just as Value. This essentially is the concept of shared memory.
+
+Note: `‘d’` indicates double-precision float, and `‘i’` (in Array(“i”, 3)) indicates a signed integer.
+
+
+
+
+# How to Implement Server Process
+
+A server process is the main process that gets triggered on the commencement of a Python program. Other processes could utilize its objects for manipulation. A manager object of the class Manager() controls a server process. Manager() supports multiple data types such as list, dict, Lock, RLock, Semaphore, BoundedSemaphore, Namespace, Condition, Event, Queue, Value, and Array.
+
+
+```
+python3 server-process.py
+```
