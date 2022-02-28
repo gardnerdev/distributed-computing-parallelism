@@ -52,3 +52,17 @@ Shared Memory vs. Server Process:
     * Manager() supports a variety of data types in comparison with shared memory
     * Processes can share a single manager on different computers over a network
     * A server process is slower than shared memory
+
+
+# Using Pool
+
+The Pool class in multiprocessing can handle an enormous number of processes. It allows you to run multiple jobs per process (due to its ability to queue the jobs). The memory is allocated only to the executing processes, unlike the Process class, which allocates memory to all the processes. The Pool class takes the number of worker processes to be present in the pool and spawns the processes
+
+Launching many processes using the Process class is practically infeasible as it could break the OS. Hence comes Pool which shall handle the distribution of jobs to and collection of results from all the spawned processes in the presence of a minimal number of worker processes (most preferably, the number of worker processes is equal to CPU cores).
+
+
+Pool class comes with six valuable methods:
+
+* apply() method blocks the primary process until all the processes are complete.
+It accepts multiple arguments, maintains the order of the result, and isn’t concurrent
+
