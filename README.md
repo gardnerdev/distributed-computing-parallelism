@@ -46,3 +46,9 @@ A server process is the main process that gets triggered on the commencement of 
 ```
 python3 server-process.py
 ```
+
+Shared Memory vs. Server Process:
+
+    * Manager() supports a variety of data types in comparison with shared memory
+    * Processes can share a single manager on different computers over a network
+    * A server process is slower than shared memory
