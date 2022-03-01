@@ -66,3 +66,8 @@ Pool class comes with six valuable methods:
 * apply() method blocks the primary process until all the processes are complete.
 It accepts multiple arguments, maintains the order of the result, and isn’t concurrent
 
+
+
+* apply_async() - A callback function in apply_async() can be used to return the value immediately 
+after its execution is complete. This method maintains the order of the result and supports concurrency.
+You can use wait() to block the asynchronous calls

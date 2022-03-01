@@ -5,7 +5,7 @@ from multiprocessing import Pool
 def cube(x):
     print(f"start process {x}")
     result = x * x * x
-    time.sleep(1)
+    # time.sleep(1)
     print(f"end process {x}")
     return result
 

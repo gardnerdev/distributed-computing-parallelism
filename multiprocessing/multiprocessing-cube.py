@@ -4,13 +4,15 @@ from multiprocessing import Process
 def cube(x):
     print(f"starting process {x}")
     print(f"calculating cube of {x}... result: {x*x*x}")
-    time.sleep(1)
+    # time.sleep(1)
     print(f"end process {x}")
+    return x * x * x
     
 
 if __name__ =="__main__":
     processes = []
-    for i in range(5):
+    ts = time.time()
+    for i in range(10):
         p = Process(target=cube, args=(i,)) # target specified the function to be called
         processes.append(p)
         p.start() # start the process
@@ -19,4 +21,4 @@ if __name__ =="__main__":
         p.join()        # is detected using the join() method. It helps in making sure that the rest of the 
                         # program runs only after the multiprocessing is complete
         
-    
+    print("Time in parallel [process method]:", time.time() - ts)
