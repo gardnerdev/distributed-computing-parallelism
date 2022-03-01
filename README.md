@@ -71,3 +71,12 @@ It accepts multiple arguments, maintains the order of the result, and isn’t co
 * apply_async() - A callback function in apply_async() can be used to return the value immediately 
 after its execution is complete. This method maintains the order of the result and supports concurrency.
 You can use wait() to block the asynchronous calls
+
+
+
+* map_async() - Unlike map(), map_async() is non-blocking (and maintains the order of the result).
+
+
+
+* imap() - Unlike map(), imap() doesn’t wait for all the results and returns an iterator (not a list).
+
