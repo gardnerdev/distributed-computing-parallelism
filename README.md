@@ -119,7 +119,9 @@ Data products
 
 
 
+
 | Registry                                                    |  Tags |
+|------------------------------------------------------------ |-------|
 |gtm/core/data_products/argo-workflows                        |  7    |
 |gtm/core/data_products/content-recommendation                |  6    |
 |gtm/core/data_products/personify/visit-recommender           |  11   |
@@ -151,6 +153,8 @@ Platform
 
 
 | Registry                         | Tags |
+|----------------------------------| -----|
 | gtm/core/platform/aws-cli/cache  | 33   |
 | gtm/core/platform/aws-cli        | 2    |
+
 
