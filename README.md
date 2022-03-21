@@ -87,30 +87,53 @@ Dockerfiles common for all projects:
 - **Dockerfile.poetry** - Base image for Kubeflow jobs. Contains poetry and python. Should be used as an input for project-specific dockerfiles. Image stored in GitLab registry. Avaiable tags: develop/master.
 
 
-Data products
 
-|    location                                        |                            Base image                                  |  comment                  |
-|----------------------------------------------------|------------------------------------------------------------------------|---------------------------|
-|curated/Dockerfile                                  |     python:3.8-slim-buster                                             |                           |
-|libraries/Dockerfile                                |     gtm/core/data_products/python:3.8-slim-buster                      |                           |
-|libraries/kfp/Dockerfile                            |     python:3.8.12-bullseye                                             |                           |
-|personify/personify_nba/Dockerfile                  |     python:3.8-slim-buster                                             |                           |
-|`common`                                            |                                                                        |                           |
-|`└── dbt/Dockerfile`                                |gtm/core/data_products/python:3.8-slim-buster                           |                           |
-|`├──argo/workflows/Dockerfile`                      |gtm/core/data_products/python-poetry-tox:develop                        |                           |
-|`├──dockerfiles/Dockerfile.poetry`                  |python:3.8-slim-buster                                                  |                           |
-|`└──dockerfiles/Dockerfile.deployer`                |python:3.8-slim                                                         |                           |
-|`projects`                                          |                                                                        |                           |
-|`└──business-effectiveness/pkg/common/Dockerifle`   |$BASE_IMAGE                                                             |                           |
-|`└personify/pkg/`                                   |                                                                        |                           |
-| `├──visit-recommender/Dockerfile.visit-recommender`|gtm/core/data_products/python-poetry-tox:develop                        |                           |
-| `└──content-recommender`                           |                                                                        |                           |
-|  `|  ├──Dockerfile.content-recommendation`         |gtm/core/data_products/content-recommendation-base:latest               |                           |
-|  `|  └──Dockerfile.content-recommendation-base`    |gps/personify/kf-pipelines/pipelines-base:latest                        |                           |
-|  `└──internal-content-recommender`                 |                                                                        |                           |
-|     `└──Dockerfile.internal-content-recommender`   |gtm/core/data_products/python-poetry-tox:develop                        |                           |
-|`argo`                                              |                                                                        |                           |
-|  `└──Dockerfile.aws_kubectl`                       |registry.code.roche.com/gtm/core/data_products/aws_cli:latest           |                           |
+    ``` 
+    curated/Dockerfile                                  
+    libraries/Dockerfile                                
+    libraries/kfp/Dockerfile                            
+    personify/personify_nba/Dockerfile                  
+    commondbt/Dockerfile                                
+    ├──argo/workflows/Dockerfile                      
+    ├──dockerfiles/Dockerfile.poetry                  
+    └──dockerfiles/Dockerfile.deployer                
+    projects                                            
+    └──business-effectiveness/pkg/common/Dockerifle     
+    └──personify/pkg/                                   
+    ├──visit-recommender/Dockerfile.visit-recommender
+    └──content-recommender                           
+    |  ├──Dockerfile.content-recommendation          
+    |  └──Dockerfile.content-recommendation-base     
+    └──internal-content-recommender                  
+        └──Dockerfile.internal-content-recommender    
+    argo                                                
+    └──Dockerfile.aws_kubectl
+    ```                        
+
+
+
+
+Nr  |                            Base image                                  |  comment                  |
+----|------------------------------------------------------------------------|---------------------------|
+1   |     python:3.8-slim-buster                                             |                           |
+    |     gtm/core/data_products/python:3.8-slim-buster                      |                           |
+    |     python:3.8.12-bullseye                                             |                           |
+    |     python:3.8-slim-buster                                             |                           |
+    |gtm/core/data_products/python:3.8-slim-buster                           |                           |
+    |gtm/core/data_products/python-poetry-tox:develop                        |                           |
+    |python:3.8-slim-buster                                                  |                           |
+    |python:3.8-slim                                                         |                           |
+    |                                                                        |                           |
+    |$BASE_IMAGE                                                             |                           |
+    |                                                                        |                           |
+    |gtm/core/data_products/python-poetry-tox:develop                        |                           |
+    |                                                                        |                           |
+    |gtm/core/data_products/content-recommendation-base:latest               |                           |
+    |gps/personify/kf-pipelines/pipelines-base:latest                        |                           |
+    |                                                                        |                           |
+    |gtm/core/data_products/python-poetry-tox:develop                        |                           |
+    |                                                                        |                           |
+    |registry.code.roche.com/gtm/core/data_products/aws_cli:latest           |                           |
 
 
 
