@@ -80,3 +80,75 @@ You can use wait() to block the asynchronous calls
 
 * imap() - Unlike map(), imap() doesn’t wait for all the results and returns an iterator (not a list).
 
+
+
+
+
+Dockerfiles common for all projects:
+- **Dockerfile.deployer** - Image used in GitLab CICD to communicate with AWS. Contains awscli. Image stored in GitLab registry. Avaiable tags: develop/master.
+- **Dockerfile.poetry** - Base image for Kubeflow jobs. Contains poetry and python. Should be used as an input for project-specific dockerfiles. Image stored in GitLab registry. Avaiable tags: develop/master.
+
+
+
+Data products
+
+|    location                                        |                            Base image                                  |  comment                  |
+|----------------------------------------------------|------------------------------------------------------------------------|---------------------------|
+|curated/Dockerfile                                  |     python:3.8-slim-buster                                             |                           |
+|libraries/Dockerfile                                |     gtm/core/data_products/python:3.8-slim-buster                      |                           |
+|libraries/kfp/Dockerfile                            |     python:3.8.12-bullseye                                             |                           |
+|personify/personify_nba/Dockerfile                  |     python:3.8-slim-buster                                             |                           |
+|common                                              |                                                                        |                           |
+|  └── dbt/Dockerfile                                |gtm/core/data_products/python:3.8-slim-buster                           |                           |
+|  ├──argo/workflows/Dockerfile                      |gtm/core/data_products/python-poetry-tox:develop                        |                           |
+|  ├──dockerfiles/Dockerfile.poetry                  |python:3.8-slim-buster                                                  |                           |
+|  └──dockerfiles/Dockerfile.deployer                |python:3.8-slim                                                         |                           |
+|projects                                            |                                                                        |                           |
+|└──business-effectiveness/pkg/common/Dockerifle     |$BASE_IMAGE                                                             |                           |
+|└──personify/pkg/                                   |                                                                        |                           |
+|   ├──visit-recommender/Dockerfile.visit-recommender|gtm/core/data_products/python-poetry-tox:develop                        |                           |
+|   └──content-recommender                           |                                                                        |                           |
+|   |  ├──Dockerfile.content-recommendation          |gtm/core/data_products/content-recommendation-base:latest               |                           |
+|   |  └──Dockerfile.content-recommendation-base     |gps/personify/kf-pipelines/pipelines-base:latest                        |                           |
+|   └──internal-content-recommender                  |                                                                        |                           |
+|      └──Dockerfile.internal-content-recommender    |gtm/core/data_products/python-poetry-tox:develop                        |                           |
+|argo                                                |                                                                        |                           |
+|  └──Dockerfile.aws_kubectl                         |registry.code.roche.com/gtm/core/data_products/aws_cli:latest           |                           |
+
+
+
+| Registry                                                    |  Tags |
+|gtm/core/data_products/argo-workflows                        |  7    |
+|gtm/core/data_products/content-recommendation                |  6    |
+|gtm/core/data_products/personify/visit-recommender           |  11   |
+|gtm/core/data_products/content-recommendation-base           |  7    |
+|gtm/core/data_products/business-effectiveness-common         |  10   |
+|gtm/core/data_products/personify/internal-content-recommender|  9    |
+|gtm/core/data_products/python                                |  1    |
+|gtm/core/data_products/dbt_curated                           |  2    |
+|gtm/core/data_products/dbt_argo_common                       |  3    |
+|gtm/core/data_products/deployer                              |  1    |
+|gtm/core/data_products/hcp-linking/twitter                   |  1    |
+|gtm/core/data_products/aws_cli                               |  1    |
+|gtm/core/data_products/python-poetry-tox                     |  2    |
+|gtm/core/data_products/aws_kubectl                           |  1    |
+|gtm/core/data_products/dbt_personify_nba                     |  2    |
+
+
+
+
+Platform
+
+|    location                                                |      Base image                 |      comment                |
+|  k8s/eks/assets/notebook-server/Dockerfile                 |      $BASE_IMAGE                |                             |
+|  data_lake/code_artifacts/lambda/                          |                                 |                             |
+|  ├── dealforma_curation/Dockerfile                         |public.ecr.aws/lambda/python:3.8 |                             |  
+|  └── eneric_file_loader/Dockerfile                         |public.ecr.aws/lambda/python:3.8 |                             |
+
+
+
+| Registry                         | Tags |
+| gtm/core/platform/aws-cli/cache  | 33   |
+| gtm/core/platform/aws-cli        | 2    |
+
+
