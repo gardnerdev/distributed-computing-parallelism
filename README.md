@@ -87,6 +87,9 @@ Dockerfiles common for all projects:
 - **Dockerfile.poetry** - Base image for Kubeflow jobs. Contains poetry and python. Should be used as an input for project-specific dockerfiles. Image stored in GitLab registry. Avaiable tags: develop/master.
 
 
+Data products
+
+
     ``` 
     Location                                          |                         Base image 
     ---------------------------------------------------------------------------------------------------------------------
@@ -94,7 +97,8 @@ Dockerfiles common for all projects:
     libraries/Dockerfile                              | gtm/core/data_products/python:3.8-slim-buster                   |
     libraries/kfp/Dockerfile                          | python:3.8.12-bullseye                                          |
     personify/personify_nba/Dockerfile                | python:3.8-slim-buster                                          |
-    commondbt/Dockerfile                              | gtm/core/data_products/python:3.8-slim-buster                   |
+    commondbt                                         |                                                                 |
+    ├── dbt/Dockerfile                                | gtm/core/data_products/python:3.8-slim-buster                   |
     ├──argo/workflows/Dockerfile                      | gtm/core/data_products/python-poetry-tox:develop                |
     ├──dockerfiles/Dockerfile.poetry                  | python:3.8-slim-buster                                          |
     └──dockerfiles/Dockerfile.deployer                | python:3.8-slim                                                 |
@@ -106,10 +110,13 @@ Dockerfiles common for all projects:
     |  ├──Dockerfile.content-recommendation           | gtm/core/data_products/content-recommendation-base:latest       |
     |  └──Dockerfile.content-recommendation-base      | gps/personify/kf-pipelines/pipelines-base:latest                |
     └──internal-content-recommender                   |                                                                 |
-        └──Dockerfile.internal-content-recommender    | gtm/core/data_products/python-poetry-tox:develop                |
+    |   └──Dockerfile.internal-content-recommender    | gtm/core/data_products/python-poetry-tox:develop                |
     argo                                              |                                                                 |
     └──Dockerfile.aws_kubectl                         | registry.code.roche.com/gtm/core/data_products/aws_cli:latest   |
     ```                        
+
+
+
 
 
 | Registry                                                    |  Tags |
@@ -134,14 +141,16 @@ Dockerfiles common for all projects:
 
 Platform
 
-|    location                                                |      Base image                 |      comment                |
-|  k8s/eks/assets/notebook-server/Dockerfile                 |      $BASE_IMAGE                |                             |
-|  data_lake/code_artifacts/lambda/                          |                                 |                             |
-|  ├── dealforma_curation/Dockerfile                         |public.ecr.aws/lambda/python:3.8 |                             |  
-|  └── eneric_file_loader/Dockerfile                         |public.ecr.aws/lambda/python:3.8 |                             |
-
+```
+    location                                                  |      Base image                 |      comment                |
+    k8s/eks/assets/notebook-server/Dockerfile                 |      $BASE_IMAGE                |                             |
+    data_lake/code_artifacts/lambda/                          |                                 |                             |
+    ├── dealforma_curation/Dockerfile                         |public.ecr.aws/lambda/python:3.8 |                             |  
+    └── eneric_file_loader/Dockerfile                         |public.ecr.aws/lambda/python:3.8 |                             |
+```
 
 
 | Registry                         | Tags |
 | gtm/core/platform/aws-cli/cache  | 33   |
 | gtm/core/platform/aws-cli        | 2    |
+
