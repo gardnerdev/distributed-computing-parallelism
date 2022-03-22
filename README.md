@@ -82,77 +82,16 @@ You can use wait() to block the asynchronous calls
 
 
 
-Dockerfiles common for all projects:
-- **Dockerfile.deployer** - Image used in GitLab CICD to communicate with AWS. Contains awscli. Image stored in GitLab registry. Avaiable tags: develop/master.
-- **Dockerfile.poetry** - Base image for Kubeflow jobs. Contains poetry and python. Should be used as an input for project-specific dockerfiles. Image stored in GitLab registry. Avaiable tags: develop/master.
+# MPI
+The multiprocessing module is a great option to use for parallelization on personal computers. 
+It has limitations,so if you eventually want to scale up to a super compute you should use a parallelization model compatible with Message Passing Interface (MPI).
 
 
-Data products
+Running a Python script with MPI is a little different than you’re likely used to.
+With `mpiexec` and `mpirun` each line of code will be run by each processor, unless specified otherwise. 
+Let’s make a ‘hello world’ example to demonstrate the MPI basics.
 
-``` 
-Location                                            |                        Base image                       |  Image name (gtm/core/data_products) |            Comment                  |
-----------------------------------------------------|---------------------------------------------------------|------------------------------------- |-------------------------------------|
-curated/Dockerfile                                  |python:3.8-slim-buster                                   |dbt_curated                           |                                     |
-libraries/Dockerfile                                |gtm/core/data_products/python:3.8-slim-buster            |                                      |                                     |
-libraries/kfp/Dockerfile                            |python:3.8.12-bullseye                                   |                                      |                                     |
-personify/personify_nba/Dockerfile                  |python:3.8-slim-buster                                   |                                      |                                     |
-common                                              |---------------------------------------------------------|--------------------------------------|                                     |
-├──dbt/Dockerfile                                   |gtm/core/data_products/python:3.8-slim-buster            |                                      |                                     |
-├──argo/workflows/Dockerfile                        |gtm/core/data_products/python-poetry-tox:develop         |                                      |                                     |
-├──dockerfiles/Dockerfile.poetry                    |python:3.8-slim-buster                                   |python-poetry-tox                     |                                     |
-└──dockerfiles/Dockerfile.deployer                  |python:3.8-slim                                          |deployer                              |                                     |
-projects                                            |---------------------------------------------------------|--------------------------------------|                                     |
-├──busiss-effectiveness/pkg/common/Dockerifle       |$BASE_IMAGE                                              |business-effectiveness-common         |                                     |
-└─personify/pkg/                                    |---------------------------------------------------------|--------------------------------------|                                     |
-| ├─visit-recommender/Dockerfile.visit-recommender  |gtm/core/data_products/python-poetry-tox:develop         |personify/visit-recommender           |                                     |
-| └─content-recommender                             |---------------------------------------------------------|--------------------------------------|                                     |
-|    ├──Dockerfile.content-recommendation           |gtm/core/data_products/content-recommendation-base:latest|content-recommendation                |                                     |
-|    └──Dockerfile.content-recommendation-base      |gps/personify/kf-pipelines/pipelines-base:latest         |content-recommendation-base           |                                     |
-└──internal-content-recommender                     |---------------------------------------------------------|--------------------------------------|                                     |
-|   └──Dockerfile.internal-content-recommender      |gtm/core/data_products/python-poetry-tox:develop         |personify/internal-content-recommender|                                     |
-argo                                                |---------------------------------------------------------|--------------------------------------|                                     |
-└──Dockerfile.aws_kubectl                           |gtm/core/data_products/aws_cli:latest                    |aws_kubectl                           |Used to deploy Kubernetes Manifests  |
-|           X                                       |awsc_cli                                                 |aws_cli                               |from DockerHub - pull limit policy   |
-```                    
-
-
-
-
-| Registry                                                    |  Tags |
-|------------------------------------------------------------ |-------|
-|gtm/core/data_products/argo-workflows                        |  7    |
-|gtm/core/data_products/content-recommendation                |  6    |
-|gtm/core/data_products/personify/visit-recommender           |  11   |
-|gtm/core/data_products/content-recommendation-base           |  7    |
-|gtm/core/data_products/business-effectiveness-common         |  10   |
-|gtm/core/data_products/personify/internal-content-recommender|  9    |
-|gtm/core/data_products/python                                |  1    |
-|gtm/core/data_products/dbt_curated                           |  2    |
-|gtm/core/data_products/dbt_argo_common                       |  3    |
-|gtm/core/data_products/deployer                              |  1    |
-|gtm/core/data_products/hcp-linking/twitter                   |  1    |
-|gtm/core/data_products/aws_cli                               |  1    |
-|gtm/core/data_products/python-poetry-tox                     |  2    |
-|gtm/core/data_products/aws_kubectl                           |  1    |
-|gtm/core/data_products/dbt_personify_nba                     |  2    |
-
-
-
-
-Platform
-
+Command:
 ```
-    location                                                  |      Base image                 |      comment                |
-    k8s/eks/assets/notebook-server/Dockerfile                 |      $BASE_IMAGE                |                             |
-    data_lake/code_artifacts/lambda/                          |                                 |                             |
-    ├── dealforma_curation/Dockerfile                         |public.ecr.aws/lambda/python:3.8 |                             |  
-    └── eneric_file_loader/Dockerfile                         |public.ecr.aws/lambda/python:3.8 |                             |
+mpiexec -n 4 python main.py
 ```
-
-
-| Registry                         | Tags |
-|----------------------------------| -----|
-| gtm/core/platform/aws-cli/cache  | 33   |
-| gtm/core/platform/aws-cli        | 2    |
-
-
