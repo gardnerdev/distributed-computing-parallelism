@@ -95,3 +95,87 @@ Command:
 ```
 mpiexec -n 4 python main.py
 ```
+
+
+https://mpi4py.readthedocs.io/en/stable/tutorial.html
+
+
+
+
+Dockerfiles common for all projects:
+- **Dockerfile.deployer** - Image used in GitLab CICD to communicate with AWS. Contains awscli. Image stored in GitLab registry. Avaiable tags: develop/master.
+- **Dockerfile.poetry** - Base image for Kubeflow jobs. Contains poetry and python. Should be used as an input for project-specific dockerfiles. Image stored in GitLab registry. Avaiable tags: develop/master.
+
+
+GTM Data Products
+
+
+``` 
+Location                                            |                        Base image                       |  Image name (gtm/core/data_products) |            Comment                  |
+----------------------------------------------------|---------------------------------------------------------|------------------------------------- |-------------------------------------|
+curated/Dockerfile                                  |python:3.8-slim-buster                                   |dbt_curated                           |                                     |
+libraries/Dockerfile                                |gtm/core/data_products/python:3.8-slim-buster            |    X                                 |to remove                            |
+libraries/kfp/Dockerfile                            |python:3.8.12-bullseye                                   |    X                                 |to remove                            |
+personify/personify_nba/Dockerfile                  |python:3.8-slim-buster                                   |dbt_personify_nba                     |DBT Collector, runs after KFP pipes  |
+common                                              |---------------------------------------------------------|--------------------------------------|                                     |
+├──dbt/Dockerfile                                   |gtm/core/data_products/python:3.8-slim-buster            |dbt_argo_common                       |                                     |
+├──argo/workflows/Dockerfile                        |gtm/core/data_products/python-poetry-tox:develop         |argo-workflows                        |                                     |
+├──dockerfiles/Dockerfile.poetry                    |python:3.8-slim-buster                                   |python-poetry-tox                     |base image-poetry&python (kubeflow)  |
+└──dockerfiles/Dockerfile.deployer                  |python:3.8-slim                                          |deployer                              |awscli                               |
+projects                                            |---------------------------------------------------------|--------------------------------------|                                     |
+├──busiss-effectiveness/pkg/common/Dockerifle       |$BASE_IMAGE                                              |business-effectiveness-common         |                                     |
+└─personify/pkg/                                    |---------------------------------------------------------|--------------------------------------|                                     |
+| ├─visit-recommender/Dockerfile.visit-recommender  |gtm/core/data_products/python-poetry-tox:develop         |personify/visit-recommender           |                                     |
+| └─content-recommender                             |---------------------------------------------------------|--------------------------------------|                                     |
+|    ├──Dockerfile.content-recommendation           |gtm/core/data_products/content-recommendation-base:latest|content-recommendation                |KFP and Gitlab CI-untill ECR enabled |
+|    └──Dockerfile.content-recommendation-base      |gps/personify/kf-pipelines/pipelines-base:latest         |content-recommendation-base           |to remove                            |
+└──internal-content-recommender                     |---------------------------------------------------------|--------------------------------------|                                     |
+|   └──Dockerfile.internal-content-recommender      |gtm/core/data_products/python-poetry-tox:develop         |personify/internal-content-recommender|                                     |
+argo                                                |---------------------------------------------------------|--------------------------------------|                                     |
+└──Dockerfile.aws_kubectl                           |gtm/core/data_products/aws_cli:latest                    |aws_kubectl                           |Used to deploy Kubernetes Manifests  |
+|           X                                       |awsc_cli                                                 |aws_cli                               |from DockerHub - pull limit policy   |
+```                    
+
+
+
+
+| Registry                                                    |  Tags | Registry |
+|------------------------------------------------------------ |-------|----------|    
+|gtm/core/data_products/argo-workflows                        |  7    |    x     |
+|gtm/core/data_products/content-recommendation                |  6    |    x     |
+|gtm/core/data_products/personify/visit-recommender           |  11   |    x     |
+|gtm/core/data_products/content-recommendation-base           |  7    |    x     |
+|gtm/core/data_products/business-effectiveness-common         |  10   |    x     |
+|gtm/core/data_products/personify/internal-content-recommender|  9    |    x     |
+|gtm/core/data_products/python                                |  1    |    -     |
+|gtm/core/data_products/dbt_curated                           |  2    |    x     |
+|gtm/core/data_products/dbt_argo_common                       |  3    |    x     |
+|gtm/core/data_products/deployer                              |  1    |    x     |
+|gtm/core/data_products/hcp-linking/twitter                   |  1    |    ?     |
+|gtm/core/data_products/aws_cli                               |  1    |    -     |
+|gtm/core/data_products/python-poetry-tox                     |  2    |    x     |
+|gtm/core/data_products/aws_kubectl                           |  1    |    x     |
+|gtm/core/data_products/dbt_personify_nba                     |  2    |    x     |
+
+
+
+
+GTM Platform
+
+
+Platform
+
+```
+location                                                  |      Base image                 |      comment                |
+k8s/eks/assets/notebook-server/Dockerfile                 |      $BASE_IMAGE                |                             |
+data_lake/code_artifacts/lambda/                          |                                 |                             |
+├── dealforma_curation/Dockerfile                         |public.ecr.aws/lambda/python:3.8 |                             |  
+└── eneric_file_loader/Dockerfile                         |public.ecr.aws/lambda/python:3.8 |                             |
+```
+
+
+| Registry                         | Tags |
+|----------------------------------| -----|
+| gtm/core/platform/aws-cli/cache  | 33   |
+| gtm/core/platform/aws-cli        | 2    |
+
