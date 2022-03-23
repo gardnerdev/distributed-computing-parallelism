@@ -113,3 +113,13 @@ https://mpi4py.readthedocs.io/en/stable/tutorial.html
 
 
 
+## Colective communication
+
+### Broadcasting
+Broadcasting takes a variable and sends an exact copy of it to all processes on a communicator.
+
+### Scattering
+Scatter takes an array and distributes contiguous sections of it across the ranks of a communicator.
+
+
+![alt text](scattering-broadcasting.png)
