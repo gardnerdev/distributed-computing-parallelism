@@ -1,32 +1,35 @@
 [Explanation](https://medium.com/fintechexplained/advanced-python-concurrency-and-parallelism-82e378f26ced)
 
 
+# Paralellsim
 
 
-# multiprocessing cube
+
+# Multiprocessing
+## multiprocessing cube
 Simple multiprocessing example
 
 
-# pipe communication
+## pipe communication
 If two processes need to communicate, Pipe’s the best choice. A pipe can have two end-points where each has `send() 
 and `recv()` methods. Data in a pipe could get corrupted if two processes (threads) read from or write to the same 
 end-point simultaneously. That's why queue is one of the solutions.
 
-# queue
+## queue
 To store the output of multiple processes in a shared communication channel, a queue can be used. 
 For instance, assume that the task is to find the cubes of the first ten natural numbers followed by adding 1 to each number.
 
 Define two functions sum() and cube(). Then define a Queue (q) and call cube() function followed by the add() function
 
 
-# How to Implement Shared Memory
+## How to Implement Shared Memory
 Taking a cue from Queue, Shared Memory stores the shared data among the processes seamlessly. It can be of two types: Value or Array.
 
 
-## Value
+### Value
 The number 4 is passed as an argument to the function cube(). value attribute fetches the actual value of the Value, num. The modified number is later sent to the cube() function. The final double-cubed number is then reflected in the print statement.
 
-## Array
+### Array
 A list of values can be shared amongst multiple processes. 
 Array() initializes an empty array possessing int data type having a length 3. 
 The array has been looped over by adding 1 to every element in it.
@@ -38,7 +41,7 @@ Note: `‘d’` indicates double-precision float, and `‘i’` (in Array(“i�
 
 
 
-# How to Implement Server Process
+## How to Implement Server Process
 
 A server process is the main process that gets triggered on the commencement of a Python program. Other processes could utilize its objects for manipulation. A manager object of the class Manager() controls a server process. Manager() supports multiple data types such as list, dict, Lock, RLock, Semaphore, BoundedSemaphore, Namespace, Condition, Event, Queue, Value, and Array.
 
@@ -54,7 +57,7 @@ Shared Memory vs. Server Process:
     * A server process is slower than shared memory
 
 
-# Using Pool
+## Using Pool
 
 The Pool class in multiprocessing can handle an enormous number of processes. It allows you to run multiple jobs per process (due to its ability to queue the jobs). The memory is allocated only to the executing processes, unlike the Process class, which allocates memory to all the processes. The Pool class takes the number of worker processes to be present in the pool and spawns the processes
 
@@ -82,7 +85,16 @@ You can use wait() to block the asynchronous calls
 
 
 
-# MPI
+# Distributed computing & parallelsim
+## MPI
+
+MPI is a standardized and portable message-passing system designed
+to function on a wide variety of parallel computers.
+MPI is to be used in computers with distributed memory. 
+If you’re using a shared memory multiprocessor architecture, I would recommend using multithreading, 
+to avoid the communication overhead from message passing.
+
+
 The multiprocessing module is a great option to use for parallelization on personal computers. 
 It has limitations,so if you eventually want to scale up to a super compute you should use a parallelization model compatible with Message Passing Interface (MPI).
 
@@ -98,3 +110,6 @@ mpiexec -n 4 python main.py
 
 
 https://mpi4py.readthedocs.io/en/stable/tutorial.html
+
+
+
