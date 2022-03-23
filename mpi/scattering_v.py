@@ -25,4 +25,5 @@ if rank == 0:
 else:
     data = None
 data = comm.scatter(data, root=0)
+
 print("Process {} has number of elements:".format(rank), len(data))
