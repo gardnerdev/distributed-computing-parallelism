@@ -121,5 +121,14 @@ Broadcasting takes a variable and sends an exact copy of it to all processes on 
 ### Scattering
 Scatter takes an array and distributes contiguous sections of it across the ranks of a communicator.
 
+*Restrictions to scatter: you can only scatter as many elements as you have processors!*
+
+Scatter is not as convenient in practice since it requires the size of the large array to be divisible by the number of processes. 
+For instance, if we know beforehand that the array we are going to distribute has 16 elements, it will be straightforward to use Scatter to distribute the array on 4 processes in such a way that each process gets 4 elements. 
+The problem is that, in practice, the size of the array is not known beforehand and is therefore not guaranteed to be divisible
+by the number of available processes. It is more practical to use Scatterv, the vector version of Scatter, 
+which offers a much more flexible way to distribute the array. The code below distributes 15 numbers over 4 processes. 
+
+
 
 ![alt text](scattering-broadcasting.png)
