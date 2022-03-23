@@ -98,10 +98,3 @@ mpiexec -n 4 python main.py
 
 
 https://mpi4py.readthedocs.io/en/stable/tutorial.html
-
-
-
-
-Dockerfiles common for all projects:
-- **Dockerfile.deployer** - Image used in GitLab CICD to communicate with AWS. Contains awscli. Image stored in GitLab registry. Avaiable tags: develop/master.
-- **Dockerfile.poetry** - Base image for Kubeflow jobs. Contains poetry and python. Should be used as an input for project-specific dockerfiles. Image stored in GitLab registry. Avaiable tags: develop/master.
