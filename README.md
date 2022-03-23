@@ -95,3 +95,6 @@ Command:
 ```
 mpiexec -n 4 python main.py
 ```
+
+
+https://mpi4py.readthedocs.io/en/stable/tutorial.html
